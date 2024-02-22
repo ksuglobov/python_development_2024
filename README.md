@@ -1,0 +1,2 @@
+## Python 2024 Collaborative App Development Course Repository
+Welcome to my repository for the Python 2024 Collaborative App Development course! Here, you'll find the completed assignments from the course.
