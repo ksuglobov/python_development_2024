@@ -2,6 +2,18 @@ from cowsay import Option as default_cow, cowsay, list_cows
 import argparse
 
 
+COW_MODES = [
+    'Borg',
+    'dead',
+    'greedy',
+    'paranoid',
+    'stoned',
+    'tired',
+    'wired',
+    'young'
+]
+
+
 def list_cows_mode():
     cows = list_cows()
     print(cows)
@@ -52,8 +64,7 @@ def main():
         title='Cow mode',
         description='Affects the appearance of the cow. If multiple modes are given, the one furthest down in this list is selected'
     )
-    cow_modes = ['Borg', 'dead', 'greedy', 'paranoid', 'stoned', 'tired', 'wired', 'young']
-    for cow_mode in cow_modes:
+    for cow_mode in COW_MODES:
         key = cow_mode[0].lower()
         cow_mode_parser.add_argument(f'-{key}', action='store_const', const=key, help=cow_mode)
 
