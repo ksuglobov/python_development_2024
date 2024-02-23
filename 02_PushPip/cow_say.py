@@ -13,6 +13,14 @@ COW_MODES = [
     'young'
 ]
 
+def get_cow_mode(args):
+    for cow_mode in COW_MODES[::-1]:
+        key = cow_mode[0].lower()
+        value = args[key]
+        if value:
+            return value
+    return None
+
 
 def list_cows_mode():
     cows = list_cows()
@@ -20,7 +28,16 @@ def list_cows_mode():
 
 
 def cowsay_mode(args):
-    cowsay(...)
+    res = cowsay(
+        message=args.message,
+        cow=args.cow,
+        preset=get_cow_mode(args),
+        eyes=args.eyes,
+        tongue=args.tongue,
+        width=args.width,
+        wrap_text=not args.not_wrapping,
+    )
+    print(res)
 
 
 def main():
