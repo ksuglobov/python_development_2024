@@ -42,14 +42,10 @@ def main():
         title='Cow mode',
         description='Affects the appearance of the cow. If multiple modes are given, the one furthest down in this list is selected'
     )
-    cow_mode_parser.add_argument('-b', action='store_const', const='b', help='Borg')
-    cow_mode_parser.add_argument('-d', action='store_const', const='d', help='dead')
-    cow_mode_parser.add_argument('-g', action='store_const', const='g', help='greedy')
-    cow_mode_parser.add_argument('-p', action='store_const', const='p', help='paranoid')
-    cow_mode_parser.add_argument('-s', action='store_const', const='s', help='stoned')
-    cow_mode_parser.add_argument('-t', action='store_const', const='t', help='tired')
-    cow_mode_parser.add_argument('-w', action='store_const', const='w', help='wired')
-    cow_mode_parser.add_argument('-y', action='store_const', const='y', help='young')
+    cow_modes = ['Borg', 'dead', 'greedy', 'paranoid', 'stoned', 'tired', 'wired', 'young']
+    for cow_mode in cow_modes:
+        key = cow_mode[0].lower()
+        cow_mode_parser.add_argument(f'-{key}', action='store_const', const=key, help=cow_mode)
 
     parser.add_argument(
         '-e',
