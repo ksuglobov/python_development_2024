@@ -26,6 +26,7 @@ def get_cow_mode(args):
 
 def list_cows_mode():
     cows = list_cows()
+
     print(cows)
 
 
@@ -50,7 +51,7 @@ def cowsay_mode(args):
 def main():
     # command line arguments parser
     parser = argparse.ArgumentParser(
-        description='Command-line interface for python package python-cowsay'
+        description='Command-line interface for python package python-cowsay.'
     )
 
     # message parameters
@@ -86,7 +87,7 @@ def main():
     # cow mode
     cow_mode_parser = parser.add_argument_group(
         title='Cow mode',
-        description='Affects the appearance of the cow. If multiple modes are given, the one furthest down in this list is selected'
+        description='Mode affects the appearance of the cow. If multiple modes are given, the one furthest down in this list is selected.'
     )
     for cow_mode in COW_MODES:
         key = cow_mode[0].lower()
