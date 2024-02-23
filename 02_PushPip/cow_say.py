@@ -44,7 +44,7 @@ def main():
         type=str,
         default='default',
         dest='cow',
-        help='Either the name of a cow from cowpath (default: %(default)s) or path to cowfile.'
+        help='Name of a cow from cowpath (default: %(default)s).'
     )
 
     # cow mode
