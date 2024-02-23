@@ -27,25 +27,24 @@ def main():
     parser.add_argument(
         '-n',
         action='store_true',
-        default=False,
-        help='Disable message wrapping by message width (default: False).',
-        dest='not_wrapping'
+        dest='not_wrapping',
+        help='Disable message wrapping by message width (default: False).'
     )
     parser.add_argument(
         '-W',
         type=int,
         default=40,
-        help='Width to wrap the message (default: %(default)s). Works if wrapping is enabled.',
-        dest='width'
+        dest='width',
+        help='Width to wrap the message (default: %(default)s). Works if wrapping is enabled.'
     )
 
     # cow itself
     parser.add_argument(
         '-f',
         type=str,
-        default="default",
-        help='Either the name of a cow from cowpath (default: %(default)s) or path to cowfile.',
-        dest='cow'
+        default='default',
+        dest='cow',
+        help='Either the name of a cow from cowpath (default: %(default)s) or path to cowfile.'
     )
 
     # cow mode
@@ -63,15 +62,15 @@ def main():
         '-e',
         type=str,
         default=default_cow.eyes,
-        help='Cow\'s eyes string (default: %(default)s). Works if no cow mode specified.',
-        dest='eyes'
+        dest='eyes',
+        help='Cow\'s eyes string (default: %(default)s). Works if no cow mode specified.'
     )
     parser.add_argument(
         '-T',
         type=str,
         default=default_cow.tongue,
-        help='Cow\'s tongue string (default: %(default)s). Works if no cow mode specified.',
-        dest='tongue'
+        dest='tongue',
+        help='Cow\'s tongue string (default: %(default)s). Works if no cow mode specified.'
     )
 
     # list cows
