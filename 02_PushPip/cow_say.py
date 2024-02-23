@@ -21,7 +21,8 @@ def main():
     parser.add_argument(
         'message',
         type=str,
-        help='The message you want the cow to say.'
+        nargs='?',
+        help='The message you want the cow to say. If not given, stdin is used instead.'
     )
     parser.add_argument(
         '-n',
