@@ -31,7 +31,7 @@ def main():
     parser.add_argument('-f',
         type=str,
         default="default",
-        help='Either the name of a cow specified in the COWPATH (default: %(default)s) or path to cowfile.',
+        help='Either the name of a cow from cowpath (default: %(default)s) or path to cowfile.',
         dest='cow'
     )
 
@@ -59,6 +59,12 @@ def main():
         default=default_cow.tongue,
         help='Cow\'s tongue string (default: %(default)s). Works if no cow mode specified.',
         dest='tongue'
+    )
+
+    # list cows
+    parser.add_argument('-l',
+        action='store_true',
+        help='List all cows in the cowpath and exit.'
     )
 
 
