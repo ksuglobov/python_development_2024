@@ -29,7 +29,7 @@ def main():
         dest='width'
     )
 
-    # cow parameters
+    # cow itself
     parser.add_argument(
         '-f',
         type=str,
@@ -38,6 +38,7 @@ def main():
         dest='cow'
     )
 
+    # cow mode
     cow_mode_parser = parser.add_argument_group(
         title='Cow mode',
         description='Affects the appearance of the cow. If multiple modes are given, the one furthest down in this list is selected'
@@ -47,6 +48,7 @@ def main():
         key = cow_mode[0].lower()
         cow_mode_parser.add_argument(f'-{key}', action='store_const', const=key, help=cow_mode)
 
+    # cow parameters
     parser.add_argument(
         '-e',
         type=str,
