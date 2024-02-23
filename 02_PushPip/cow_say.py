@@ -14,6 +14,7 @@ COW_MODES = [
 ]
 
 def get_cow_mode(args):
+    args = vars(args)
     for cow_mode in COW_MODES[::-1]:
         key = cow_mode[0].lower()
         value = args[key]
