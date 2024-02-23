@@ -1,5 +1,14 @@
-from cowsay import cowsay, Option as default_cow,
+from cowsay import Option as default_cow, cowsay, list_cows
 import argparse
+
+
+def list_cows_mode():
+    cows = list_cows()
+    print(cows)
+
+
+def cowsay_mode(args):
+    cowsay(...)
 
 
 def main():
@@ -70,6 +79,13 @@ def main():
         action='store_true',
         help='List all cows in the cowpath and exit.'
     )
+
+    args = parser.parse_args()
+
+    if args.l:
+        list_cows_mode()
+    else:
+        cowsay_mode(args)
 
 
 if __name__ == '__main__':
