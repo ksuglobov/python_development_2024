@@ -1,3 +1,4 @@
+import sys
 from cowsay import Option as default_cow, cowsay, list_cows
 import argparse
 
@@ -29,8 +30,12 @@ def list_cows_mode():
 
 
 def cowsay_mode(args):
-    res = cowsay(
-        message=args.message,
+    message = args.message
+    if message is None:
+        message = sys.stdin.read()
+
+    res = cowsay(        
+        message=message,
         cow=args.cow,
         preset=get_cow_mode(args),
         eyes=args.eyes,
@@ -38,6 +43,7 @@ def cowsay_mode(args):
         width=args.width,
         wrap_text=not args.not_wrapping,
     )
+
     print(res)
 
 
