@@ -80,6 +80,7 @@ def main():
         'length',
         type=int,
         default=5,
+        nargs='?',
         help='Length of words used in the game (default: %(default)s).'
     )
 
