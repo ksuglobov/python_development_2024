@@ -2,6 +2,8 @@ from collections import Counter
 import random
 import argparse
 from pathlib import Path
+import sys
+
 
 def bullscows(guess: str, secret: str) -> tuple[int, int]:
     bulls = 0
@@ -65,6 +67,16 @@ def gameplay(ask: callable, inform: callable, words: list[str]) -> int:
 def is_valid_file(path):
     path = Path(path)
     return path.is_file() and path.exists()
+
+
+def read_file(path):
+    try:
+        with open(path, 'r', encoding='utf-8') as f:
+            text = f.read()
+            return text
+    except Exception as e:
+        print(f'An unexpected error occurred: {str(e)}')
+        sys.exit(1)
 
 
 def main():
