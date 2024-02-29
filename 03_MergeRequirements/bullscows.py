@@ -157,6 +157,7 @@ def main():
         return
 
     # the game
+    print(f'Используются слова длины {args.length}')
     attempts = gameplay(ask, inform, words)
     print(f'Число попыток: {attempts}')
 
