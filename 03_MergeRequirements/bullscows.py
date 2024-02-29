@@ -1,7 +1,7 @@
 from collections import Counter
 import random
 import argparse
-
+from pathlib import Path
 
 def bullscows(guess: str, secret: str) -> tuple[int, int]:
     bulls = 0
@@ -60,6 +60,11 @@ def gameplay(ask: callable, inform: callable, words: list[str]) -> int:
             print('Вы угадали!')
 
     return attempts
+
+
+def is_valid_file(path):
+    path = Path(path)
+    return path.is_file() and path.exists()
 
 
 def main():
