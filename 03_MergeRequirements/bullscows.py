@@ -58,8 +58,8 @@ def gameplay(ask: callable, inform: callable, words: list[str]) -> int:
         if bulls == len(secret):
             solved = True
             print('Вы угадали!')
-    
-    print(f'Число попыток: {attempts}')
+
+    return attempts
 
 
 def main():
