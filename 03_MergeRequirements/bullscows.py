@@ -1,5 +1,6 @@
 from collections import Counter
 import random
+import argparse
 
 
 def bullscows(guess: str, secret: str) -> tuple[int, int]:
@@ -59,3 +60,29 @@ def gameplay(ask: callable, inform: callable, words: list[str]) -> int:
             print('Вы угадали!')
     
     print(f'Число попыток: {attempts}')
+
+
+def main():
+    # command line arguments parser
+    parser = argparse.ArgumentParser(
+        description='Command-line "Bulls and cows" game.'
+    )
+
+    # dictionary
+    parser.add_argument(
+        'dictionary',
+        type=str,
+        help='Path to file or URL with dictionary of words.'
+    )
+
+    # words length
+    parser.add_argument(
+        'length',
+        type=int,
+        default=5,
+        help='Length of words used in the game (default: %(default)s).'
+    )
+
+
+if __name__ == '__main__':
+    main()
