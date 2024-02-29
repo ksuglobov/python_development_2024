@@ -1,4 +1,5 @@
 from collections import Counter
+import random
 
 def bullscows(guess: str, secret: str) -> tuple[int, int]:
     bulls = 0
@@ -10,3 +11,21 @@ def bullscows(guess: str, secret: str) -> tuple[int, int]:
     cows = sum(cows_dict.values())
 
     return bulls, cows
+
+
+def gameplay(ask: callable, inform: callable, words: list[str]) -> int:
+    secret = random.choice(words)
+
+    solved = False
+    attempts = 0
+    while not solved:
+        guess = ask("Введите слово: ", words)
+        attempts += 1
+        bulls, cows = bullscows(guess, secret)
+
+        inform("Быки: {}, Коровы: {}", bulls, cows)
+
+        if bulls == len(secret):
+            solved = True
+    
+    print(attempts)
