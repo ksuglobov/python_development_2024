@@ -29,9 +29,10 @@ def ask(prompt: str, valid: list[str] = None) -> str:
                 ans = input('Сдаётесь? (y/n) ')
             if ans == 'y':
                 raise ValueError
+        else:
+            print(f'Такого слова нет в словаре')
 
         # try again
-        print(f'Такого слова нет в словаре')
         guess = input(prompt)
 
     return guess
