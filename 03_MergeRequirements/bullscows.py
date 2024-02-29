@@ -34,20 +34,21 @@ def bullscows(guess: str, secret: str) -> tuple[int, int]:
 
 
 def ask(prompt: str, valid: list[str] = None) -> str:
-    guess = input(prompt)
+    guess = input(prompt).strip()
     while not guess or valid is not None and guess not in valid:
         # surrender
         if not guess:
             ans = ''
-            while ans != 'y' and ans != 'n':
-                ans = input('Сдаётесь? (y/n) ')
-            if ans == 'y':
+            possible_ans = ['д', 'Д', 'н', 'Н']
+            while ans not in possible_ans:
+                ans = input('Сдаётесь? (д/н) ').lower()
+            if ans.lower() == 'д':
                 raise ValueError
         else:
             print(f'Такого слова нет в словаре')
 
         # try again
-        guess = input(prompt)
+        guess = input(prompt).strip()
 
     return guess
 
