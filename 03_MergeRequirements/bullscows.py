@@ -3,6 +3,7 @@ import random
 import argparse
 from pathlib import Path
 import sys
+from urllib.parse import urlparse
 
 
 def bullscows(guess: str, secret: str) -> tuple[int, int]:
@@ -67,6 +68,14 @@ def gameplay(ask: callable, inform: callable, words: list[str]) -> int:
 def is_valid_file(path):
     path = Path(path)
     return path.is_file() and path.exists()
+
+
+def is_valid_url(path):
+    try:
+        result = urlparse(path)
+        return all([result.scheme, result.netloc])
+    except:
+        return False
 
 
 def read_file(path):
