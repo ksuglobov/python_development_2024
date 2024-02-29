@@ -84,6 +84,30 @@ def main():
         help='Length of words used in the game (default: %(default)s).'
     )
 
+    args = parser.parse_args()
+
+    # read the words
+    dict_path = args.dictionary
+    if is_valid_file(dict_path):
+        words = read_file(dict_path)
+    elif is_valid_url(dict_path):
+        words = read_url(dict_path)
+    else:
+        print(f'Dictionary is neither path to file nor url!')
+        return
+
+    words = words.split()
+
+    # filter words by words length
+    words = [word for word in words if len(word) == args.length]
+    if not words:
+        print(f'There are no words with length={args.length} in dictionary!')
+        return
+
+    # the game
+    attempts = gameplay(ask, inform, words)
+    print(f'Число попыток: {attempts}')
+
 
 if __name__ == '__main__':
     main()
