@@ -15,7 +15,16 @@ def bullscows(guess: str, secret: str) -> tuple[int, int]:
 
 def ask(prompt: str, valid: list[str] = None) -> str:
     guess = input(prompt)
-    while valid is not None and guess not in valid:
+    while not guess or valid is not None and guess not in valid:
+        # surrender
+        if not guess:
+            ans = ''
+            while ans != 'y' and ans != 'n':
+                ans = input('Сдаётесь? (y/n)')
+            if ans == 'y':
+                raise ValueError
+
+        # try again
         guess = input(prompt)
 
     return guess
@@ -31,8 +40,13 @@ def gameplay(ask: callable, inform: callable, words: list[str]) -> int:
     solved = False
     attempts = 0
     while not solved:
-        guess = ask("Введите слово: ", words)
+        try:
+            guess = ask("Введите слово: ", words)
+        except ValueError:
+            print(f'Загаданное слово: {secret}')
+            break
         attempts += 1
+
         bulls, cows = bullscows(guess, secret)
 
         inform("Быки: {}, Коровы: {}", bulls, cows)
