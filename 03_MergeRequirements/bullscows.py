@@ -1,6 +1,7 @@
 from collections import Counter
 import random
 
+
 def bullscows(guess: str, secret: str) -> tuple[int, int]:
     bulls = 0
     for c1, c2 in zip(guess, secret):
@@ -20,7 +21,7 @@ def ask(prompt: str, valid: list[str] = None) -> str:
         if not guess:
             ans = ''
             while ans != 'y' and ans != 'n':
-                ans = input('Сдаётесь? (y/n)')
+                ans = input('Сдаётесь? (y/n) ')
             if ans == 'y':
                 raise ValueError
 
