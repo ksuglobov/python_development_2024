@@ -25,6 +25,7 @@ def ask(prompt: str, valid: list[str] = None) -> str:
                 raise ValueError
 
         # try again
+        print(f'Такого слова нет в словаре')
         guess = input(prompt)
 
     return guess
@@ -36,6 +37,7 @@ def inform(format_string: str, bulls: int, cows: int) -> None:
 
 def gameplay(ask: callable, inform: callable, words: list[str]) -> int:
     secret = random.choice(words)
+    print('Слово загадано')
 
     solved = False
     attempts = 0
@@ -54,4 +56,4 @@ def gameplay(ask: callable, inform: callable, words: list[str]) -> int:
         if bulls == len(secret):
             solved = True
     
-    print(attempts)
+    print(f'Число попыток: {attempts}')
