@@ -13,6 +13,14 @@ def bullscows(guess: str, secret: str) -> tuple[int, int]:
     return bulls, cows
 
 
+def ask(prompt: str, valid: list[str] = None) -> str:
+    guess = input(prompt)
+    while valid is not None and guess not in valid:
+        guess = input(prompt)
+
+    return guess
+
+
 def gameplay(ask: callable, inform: callable, words: list[str]) -> int:
     secret = random.choice(words)
 
