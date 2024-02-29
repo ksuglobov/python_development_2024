@@ -160,7 +160,11 @@ def main():
 
     # the game
     print(f'Используются слова длины {args.length}')
-    attempts = gameplay(ask, inform, words)
+    try:
+        attempts = gameplay(ask, inform, words)
+    except (KeyboardInterrupt, EOFError):
+        print(f'\nИгра завершена досрочно')
+        return
     print(f'Число попыток: {attempts}')
 
 
