@@ -7,6 +7,8 @@ from urllib.parse import urlparse
 from urllib.request import urlopen
 
 
+POSSIBLE_CHOICE = ('д', 'Д', 'н', 'Н')
+
 
 def positive_int(value):
     """
@@ -39,8 +41,7 @@ def ask(prompt: str, valid: list[str] = None) -> str:
         # surrender
         if not guess:
             ans = ''
-            possible_ans = ['д', 'Д', 'н', 'Н']
-            while ans not in possible_ans:
+            while ans not in POSSIBLE_CHOICE:
                 ans = input('Сдаётесь? (д/н) ').lower()
             if ans.lower() == 'д':
                 raise ValueError
