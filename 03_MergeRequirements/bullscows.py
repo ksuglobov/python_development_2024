@@ -43,7 +43,7 @@ def gameplay(ask: callable, inform: callable, words: list[str]) -> int:
     attempts = 0
     while not solved:
         try:
-            guess = ask("Введите слово: ", words)
+            guess = ask('Введите слово: ', words)
         except ValueError:
             print(f'Загаданное слово: {secret}')
             break
@@ -51,7 +51,7 @@ def gameplay(ask: callable, inform: callable, words: list[str]) -> int:
 
         bulls, cows = bullscows(guess, secret)
 
-        inform("Быки: {}, Коровы: {}", bulls, cows)
+        inform('Быки: {}, Коровы: {}', bulls, cows)
 
         if bulls == len(secret):
             solved = True
