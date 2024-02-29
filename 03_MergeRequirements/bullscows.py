@@ -7,6 +7,20 @@ from urllib.parse import urlparse
 from urllib.request import urlopen
 
 
+
+def positive_int(value):
+    """
+    Check if the value is a positive integer number.
+    """
+    try:
+        value = int(value)
+        if value <= 0:
+            raise ValueError
+        return value
+    except ValueError:
+        raise argparse.ArgumentTypeError(f'invalid positive int value: {value}')
+
+
 def bullscows(guess: str, secret: str) -> tuple[int, int]:
     bulls = 0
     for c1, c2 in zip(guess, secret):
@@ -116,7 +130,7 @@ def main():
     # words length
     parser.add_argument(
         'length',
-        type=int,
+        type=positive_int,
         default=5,
         nargs='?',
         help='Length of words used in the game (default: %(default)s).'
