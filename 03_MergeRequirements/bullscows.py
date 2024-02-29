@@ -4,6 +4,7 @@ import argparse
 from pathlib import Path
 import sys
 from urllib.parse import urlparse
+from urllib.request import urlopen
 
 
 def bullscows(guess: str, secret: str) -> tuple[int, int]:
@@ -82,6 +83,16 @@ def read_file(path):
     try:
         with open(path, 'r', encoding='utf-8') as f:
             text = f.read()
+            return text
+    except Exception as e:
+        print(f'An unexpected error occurred: {str(e)}')
+        sys.exit(1)
+
+
+def read_url(path):
+    try:
+        with urlopen(path) as response:
+            text = response.read().decode('utf-8')
             return text
     except Exception as e:
         print(f'An unexpected error occurred: {str(e)}')
