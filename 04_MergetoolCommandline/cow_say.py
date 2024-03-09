@@ -1,5 +1,5 @@
 import sys
-from cowsay import list_cows, make_bubble, cowsay, cowthink
+import cowsay
 import cmd
 import shlex
 
@@ -15,12 +15,14 @@ class CowsayShell(cmd.Cmd):
         """
         args = shlex.split(args)
 
-        if len(args) == 0:
-            print(list_cows())
-        elif len(args) == 1:
-            print(list_cows(args[0]))
-        else:
+        if len(args) > 1:
             print('Invalid number of arguments!')
+
+        path2dir = cowsay.COW_PEN
+        if len(args) == 1:
+            path2dir = args[0]
+
+        print(cowsay.list_cows(path2dir))
 
     def do_make_bubble(self, args):
         """
@@ -48,7 +50,7 @@ class CowsayShell(cmd.Cmd):
             else:
                 print('Invalid wrap_text value! Value can be "True" or "False".')
 
-        print(make_bubble(text=text, width=width, wrap_text=wrap_text))
+        print(cowsay.make_bubble(text=text, width=width, wrap_text=wrap_text))
 
     def do_cowsay(self, args):
         pass
