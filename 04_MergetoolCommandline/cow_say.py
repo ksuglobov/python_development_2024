@@ -23,7 +23,28 @@ class CowsayShell(cmd.Cmd):
             print(f'Invalid argument!')
 
     def do_make_bubble(self, args):
-        pass
+        args = shlex.split(args)
+
+        if len(args) < 1 or len(args) > 3:
+            print('Invalid number of arguments!')
+
+        text = args[0]
+
+        width = 40
+        if len(args) == 2:
+            width = int(args[1])
+
+        wrap_text = True
+        if len(args) == 3:
+            wrap_text = args[2]
+            if wrap_text == 'True':
+                wrap_text = True
+            elif wrap_text == 'False':
+                wrap_text = False
+            else:
+                print('Invalid wrap_text value! Value can be "True" or "False".')
+
+        print(make_bubble(text=text, width=width, wrap_text=wrap_text))
 
     def do_cowsay(self, args):
         pass
