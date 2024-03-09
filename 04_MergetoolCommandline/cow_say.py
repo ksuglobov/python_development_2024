@@ -116,6 +116,9 @@ class CowsayShell(cmd.Cmd):
         """
         self.cow_action(cowsay.cowthink, args)
 
+    def complete_cowthink(self, *args):
+        return self.cow_action_complete(*args)
+
 
 if __name__ == '__main__':
     CowsayShell().cmdloop()
