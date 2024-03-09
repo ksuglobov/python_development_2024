@@ -23,6 +23,10 @@ class CowsayShell(cmd.Cmd):
             print(f'Invalid argument!')
 
     def do_make_bubble(self, args):
+        """
+        Wraps text in a bubble.\n
+        Usage: make_bubble [width [wrap_text]]
+        """
         args = shlex.split(args)
 
         if len(args) < 1 or len(args) > 3:
