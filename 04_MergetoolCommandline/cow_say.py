@@ -17,6 +17,7 @@ class CowsayShell(cmd.Cmd):
 
         if len(args) > 1:
             print('Invalid number of arguments!')
+            return
 
         path2dir = cowsay.COW_PEN
         if len(args) == 1:
@@ -33,6 +34,7 @@ class CowsayShell(cmd.Cmd):
 
         if len(args) < 1 or len(args) > 3:
             print('Invalid number of arguments!')
+            return
 
         text = args[0]
 
@@ -49,6 +51,7 @@ class CowsayShell(cmd.Cmd):
                 wrap_text = False
             else:
                 print('Invalid wrap_text value! Value can be "True" or "False".')
+                return
 
         print(cowsay.make_bubble(text=text, width=width, wrap_text=wrap_text))
 
