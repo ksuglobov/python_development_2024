@@ -1,4 +1,3 @@
-import sys
 import cowsay
 import cmd
 import shlex
