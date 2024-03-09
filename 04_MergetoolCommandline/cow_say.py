@@ -86,12 +86,28 @@ class CowsayShell(cmd.Cmd):
 
         print(action(message=message, cow=cow, eyes=eyes, tongue=tongue))
     
+    def cow_action_complete(self, text, line, begidx, endidx):
+        words = (line[:endidx] + ".").split()
+
+        match len(words):
+            case 3:
+                completions = cowsay.list_cows()
+            case 4:
+                completions = ['..', 'oo', '00', 'OO', '$$', '66']
+            case 5:
+                completions = ['|', 'U', 'V', 'J']
+
+        return [c for c in completions if c.startswith(text)]
+    
     def do_cowsay(self, args):
         """
         Print message via cowsay.\n
         Usage: cowsay [cow [eyes [tongue]]]
         """
         self.cow_action(cowsay.cowsay, args)
+
+    def complete_cowsay(self, *args):
+        return self.cow_action_complete(*args)
 
     def do_cowthink(self, args):
         """
