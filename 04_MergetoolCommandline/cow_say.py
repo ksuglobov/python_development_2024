@@ -20,7 +20,7 @@ class CowsayShell(cmd.Cmd):
         elif len(args) == 1:
             print(list_cows(args[0]))
         else:
-            print(f'Invalid argument!')
+            print('Invalid number of arguments!')
 
     def do_make_bubble(self, args):
         """
