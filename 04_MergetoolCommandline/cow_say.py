@@ -55,7 +55,7 @@ class CowsayShell(cmd.Cmd):
 
         print(cowsay.make_bubble(text=text, width=width, wrap_text=wrap_text))
 
-    def cow_action(action, args):
+    def cow_action(self, action, args):
         args = shlex.split(args)
 
         if len(args) < 1 or len(args) > 5:
