@@ -55,8 +55,31 @@ class CowsayShell(cmd.Cmd):
 
         print(cowsay.make_bubble(text=text, width=width, wrap_text=wrap_text))
 
+    def cow_action(action, args):
+        args = shlex.split(args)
+
+        if len(args) < 1 or len(args) > 5:
+            print('Invalid number of arguments!')
+            return
+
+        message = args[0]
+
+        cow = 'default'
+        if len(args) >= 2:
+            cow = args[1]
+
+        eyes = cowsay.Option.eyes
+        if len(args) >= 3:
+            eyes = args[2]
+
+        tongue = cowsay.Option.tongue
+        if len(args) >= 4:
+            tongue = args[3]
+
+        print(action(message=message, cow=cow, eyes=eyes, tongue=tongue))
+    
     def do_cowsay(self, args):
-        pass
+        self.cow_action(cowsay.cowsay, args)
 
     def do_cowthink(self, args):
         pass
