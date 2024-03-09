@@ -9,6 +9,10 @@ class CowsayShell(cmd.Cmd):
     prompt = "[cowsay] >>> "
 
     def do_list_cows(self, args):
+        """
+        Lists all cow file names in the given directory.\n
+        Usage: list_cows [path_to_directory_with_cows]
+        """
         args = shlex.split(args)
 
         if len(args) == 0:
