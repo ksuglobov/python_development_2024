@@ -55,6 +55,14 @@ class CowsayShell(cmd.Cmd):
 
         print(cowsay.make_bubble(text=text, width=width, wrap_text=wrap_text))
 
+    def complete_make_bubble(self, text, line, begidx, endidx):
+        words = (line[:endidx] + ".").split()
+
+        if len(words) == 4:
+            completions = ['True', 'False']
+
+        return [c for c in completions if c.startswith(text)]
+
     def cow_action(self, action, args):
         args = shlex.split(args)
 
