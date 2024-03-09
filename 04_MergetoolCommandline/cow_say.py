@@ -39,7 +39,7 @@ class CowsayShell(cmd.Cmd):
         text = args[0]
 
         width = 40
-        if len(args) == 2:
+        if len(args) >= 2:
             width = int(args[1])
 
         wrap_text = True
