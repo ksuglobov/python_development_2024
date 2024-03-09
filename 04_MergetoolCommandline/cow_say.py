@@ -86,6 +86,10 @@ class CowsayShell(cmd.Cmd):
         self.cow_action(cowsay.cowsay, args)
 
     def do_cowthink(self, args):
+        """
+        Print message via cowthink.\n
+        Usage: cowsay [cow [eyes [tongue]]]
+        """
         self.cow_action(cowsay.cowthink, args)
 
 
