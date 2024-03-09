@@ -9,7 +9,14 @@ class CowsayShell(cmd.Cmd):
     prompt = "[cowsay] >>> "
 
     def do_list_cows(self, args):
-        pass
+        args = shlex.split(args)
+
+        if len(args) == 0:
+            print(list_cows())
+        elif len(args) == 1:
+            print(list_cows(args[0]))
+        else:
+            print(f'Invalid argument!')
 
     def do_make_bubble(self, args):
         pass
