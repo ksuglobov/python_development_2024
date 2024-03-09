@@ -27,7 +27,7 @@ class CowsayShell(cmd.Cmd):
     def do_make_bubble(self, args):
         """
         Wraps text in a bubble.\n
-        Usage: make_bubble [width [wrap_text]]
+        Usage: make_bubble text [width [wrap_text]]
         """
         args = shlex.split(args)
 
@@ -101,7 +101,7 @@ class CowsayShell(cmd.Cmd):
     def do_cowsay(self, args):
         """
         Print message via cowsay.\n
-        Usage: cowsay [cow [eyes [tongue]]]
+        Usage: cowsay message [cow [eyes [tongue]]]
         """
         self.cow_action(cowsay.cowsay, args)
 
@@ -111,7 +111,7 @@ class CowsayShell(cmd.Cmd):
     def do_cowthink(self, args):
         """
         Print message via cowthink.\n
-        Usage: cowsay [cow [eyes [tongue]]]
+        Usage: cowthink message [cow [eyes [tongue]]]
         """
         self.cow_action(cowsay.cowthink, args)
 
