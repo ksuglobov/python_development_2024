@@ -92,6 +92,8 @@ async def chat(reader, writer):
                         await writer.drain()
                         quit_flag = True
                         break
+                    case []:
+                        pass
                     case _:
                         writer.write('Invalid command!\n'.encode())
                         await writer.drain()
