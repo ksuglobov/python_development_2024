@@ -20,6 +20,8 @@ async def chat(reader, writer):
     print(f'{peername} has joined the server')
     me = None
 
+    writer.write(f'>>> '.encode())
+    await writer.drain()
     send = asyncio.create_task(reader.readline())
     receive = None
 
@@ -65,6 +67,8 @@ async def chat(reader, writer):
                     case _:
                         writer.write('Invalid command!\n'.encode())
                         await writer.drain()
+                writer.write(f'>>> '.encode())
+                await writer.drain()
                 send = asyncio.create_task(reader.readline())
             elif task is receive:
                 receive = asyncio.create_task(clients[me].get())
