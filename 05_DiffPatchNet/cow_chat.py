@@ -10,16 +10,18 @@ async def chat(reader, writer):
     send = asyncio.create_task(reader.readline())
     receive = asyncio.create_task(clients[me].get())
     while not reader.at_eof():
-        done, pending = await asyncio.wait([send, receive], return_when=asyncio.FIRST_COMPLETED)
-        for q in done:
-            if q is send:
+        tasks = [send, receive]
+        done, pending = await asyncio.wait(tasks, return_when=asyncio.FIRST_COMPLETED)
+        for task in done:
+            if task is send:
+                input_line = task.result().decode().strip()
                 send = asyncio.create_task(reader.readline())
                 for out in clients.values():
                     if out is not clients[me]:
-                        await out.put(f"{me} {q.result().decode().strip()}")
-            elif q is receive:
+                        await out.put(f"{me} {input_line}")
+            elif task is receive:
                 receive = asyncio.create_task(clients[me].get())
-                writer.write(f"{q.result()}\n".encode())
+                writer.write(f"{task.result()}\n".encode())
                 await writer.drain()
     send.cancel()
     receive.cancel()
