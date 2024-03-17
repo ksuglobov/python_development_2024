@@ -40,7 +40,14 @@ async def chat(reader, writer):
                             writer.write(f'There are no logged users yet.\n'.encode())
                         await writer.drain()
                     case ['cows']:
-                        pass
+                        available_names = set(cowsay.list_cows()) - set(clients)
+                        if available_names:
+                            writer.write(f'Available usernames:\n'.encode())
+                            for i, name in enumerate(available_names):
+                                writer.write(f'{i + 1}. {name}\n'.encode())
+                        else:
+                            writer.write(f'There are no available usernames!\n'.encode())
+                        await writer.drain()
                     case ['login', name]:
                         login_status, response = await process_login(me, name)
                         if login_status:
