@@ -19,7 +19,7 @@ async def process_say(me, name, text):
     if me is None:
         return False, 'You need to log in to send a message!'
     if name not in clients:
-        return False, 'There is no user with {name} username!'
+        return False, f'There is no user with {name} username!'
 
     await clients[name].put(f'[{me}]: {text}')
     return True, ''
