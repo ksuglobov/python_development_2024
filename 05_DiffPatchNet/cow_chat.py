@@ -21,7 +21,8 @@ async def process_say(me, name, text):
     if name not in clients:
         return False, f'There is no user with {name} username!'
 
-    await clients[name].put(f'[{me}]: {text}')
+    message_text = cowsay.cowsay(text, cow=me)
+    await clients[name].put(f'\n[{me}]:\n{message_text}')
     return True, ''
 
 async def process_yield(me, text):
@@ -30,7 +31,8 @@ async def process_yield(me, text):
 
     for name in clients:
         if name != me:
-            await clients[name].put(f'[{me}] [to all]: {text}')
+            message_text = cowsay.cowsay(text, cow=me)
+            await clients[name].put(f'\n[{me}] [to all]:\n{message_text}')
     return True, ''
 
 async def chat(reader, writer):
@@ -106,7 +108,7 @@ async def chat(reader, writer):
                 send = asyncio.create_task(reader.readline())
             elif task is receive:
                 receive = asyncio.create_task(clients[me].get())
-                writer.write(f'\n{task.result()}\n'.encode())
+                writer.write(f'{task.result()}\n'.encode())
                 await writer.drain()
 
     send.cancel()
