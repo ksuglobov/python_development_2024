@@ -103,13 +103,10 @@ async def chat(reader, writer):
                     case _:
                         writer.write('Invalid command!\n'.encode())
                         await writer.drain()
-                if me is not None:
-                    writer.write(f'[{me}] >>> '.encode())
-                    await writer.drain()
-                else:
-                    writer.write(f'>>> '.encode())
-                    await writer.drain()
-                send = asyncio.create_task(reader.readline())
+
+                prompt = '>>> ' if me is None else f'[{me}] >>> '
+                writer.write(prompt.encode())
+                await writer.drain()
             elif task is receive:
                 receive = asyncio.create_task(clients[me].get())
                 writer.write(f'{task.result()}\n'.encode())
