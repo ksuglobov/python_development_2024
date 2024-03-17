@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import asyncio
+import shlex
 
 clients = {}
 
@@ -15,10 +16,24 @@ async def chat(reader, writer):
         for task in done:
             if task is send:
                 input_line = task.result().decode().strip()
+                args = shlex.split(input_line)
+                match args:
+                    case ['who']:
+                        pass
+                    case ['cows']:
+                        pass
+                    case ['login', name]:
+                        pass
+                    case ['say', name, text]:
+                        pass
+                    case ['yield', text]:
+                        pass
+                    case ['quit']:
+                        pass
+                    case _:
+                        writer.write('Invalid command!\n'.encode())
+                        await writer.drain()
                 send = asyncio.create_task(reader.readline())
-                for out in clients.values():
-                    if out is not clients[me]:
-                        await out.put(f"{me} {input_line}")
             elif task is receive:
                 receive = asyncio.create_task(clients[me].get())
                 writer.write(f"{task.result()}\n".encode())
