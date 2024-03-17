@@ -51,6 +51,7 @@ async def chat(reader, writer):
         done, pending = await asyncio.wait(tasks, return_when=asyncio.FIRST_COMPLETED)
         for task in done:
             if task is send:
+                send = asyncio.create_task(reader.readline())
                 input_line = task.result().decode().strip()
                 args = shlex.split(input_line)
                 match args:
