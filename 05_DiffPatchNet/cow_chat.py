@@ -32,7 +32,13 @@ async def chat(reader, writer):
                 args = shlex.split(input_line)
                 match args:
                     case ['who']:
-                        pass
+                        if clients:
+                            writer.write(f'Logged users:\n'.encode())
+                            for i, client in enumerate(clients):
+                                writer.write(f'{i + 1}. {client}\n'.encode())
+                        else:
+                            writer.write(f'There are no logged users yet.\n'.encode())
+                        await writer.drain()
                     case ['cows']:
                         pass
                     case ['login', name]:
