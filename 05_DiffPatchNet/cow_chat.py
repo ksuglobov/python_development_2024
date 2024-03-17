@@ -25,7 +25,8 @@ async def chat(reader, writer):
     send = asyncio.create_task(reader.readline())
     receive = None
 
-    while not reader.at_eof():
+    quit_flag = False
+    while not reader.at_eof() and not quit_flag:
         tasks = [send, receive] if receive else [send]
         done, pending = await asyncio.wait(tasks, return_when=asyncio.FIRST_COMPLETED)
         for task in done:
@@ -63,7 +64,10 @@ async def chat(reader, writer):
                     case ['yield', text]:
                         pass
                     case ['quit']:
-                        pass
+                        writer.write('Quitting...\n'.encode())
+                        await writer.drain()
+                        quit_flag = True
+                        break
                     case _:
                         writer.write('Invalid command!\n'.encode())
                         await writer.drain()
@@ -74,12 +78,17 @@ async def chat(reader, writer):
                 receive = asyncio.create_task(clients[me].get())
                 writer.write(f"{task.result()}\n".encode())
                 await writer.drain()
+
     send.cancel()
-    receive.cancel()
-    print(me, "DONE")
-    del clients[me]
+    if receive is not None:
+        receive.cancel()
+    if me is not None:
+        del clients[me]
+    writer.write('You have been disconnected from the server. Good bye!\n'.encode())
+    await writer.drain()
     writer.close()
     await writer.wait_closed()
+    print(f'{peername} has left the server')
 
 async def main():
     server = await asyncio.start_server(chat, '0.0.0.0', 1337)
