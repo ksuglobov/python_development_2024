@@ -27,7 +27,7 @@ async def chat(reader, writer):
 
     quit_flag = False
     while not reader.at_eof() and not quit_flag:
-        tasks = [send, receive] if receive else [send]
+        tasks = [send, receive] if receive is not None else [send]
         done, pending = await asyncio.wait(tasks, return_when=asyncio.FIRST_COMPLETED)
         for task in done:
             if task is send:
