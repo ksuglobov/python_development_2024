@@ -1,17 +1,30 @@
 #!/usr/bin/env python3
 import asyncio
 import shlex
+import cowsay
 
 clients = {}
 
+async def process_login(me, name):
+    if me is None:
+        if name not in cowsay.list_cows():
+            return False, 'The name should be a cow\'s name!'
+        if name in clients:
+            return False, 'This name is already taken!'
+        clients[name] = asyncio.Queue()
+        return True, 'Successfully logged in!'
+    return False, f'You are already logged in under the name {me}!'
+
 async def chat(reader, writer):
-    me = "{}:{}".format(*writer.get_extra_info('peername'))
-    print(me)
-    clients[me] = asyncio.Queue()
+    peername = '{}:{}'.format(*writer.get_extra_info('peername'))
+    print(f'{peername} has joined the server')
+    me = None
+
     send = asyncio.create_task(reader.readline())
-    receive = asyncio.create_task(clients[me].get())
+    receive = None
+
     while not reader.at_eof():
-        tasks = [send, receive]
+        tasks = [send, receive] if receive else [send]
         done, pending = await asyncio.wait(tasks, return_when=asyncio.FIRST_COMPLETED)
         for task in done:
             if task is send:
@@ -23,7 +36,13 @@ async def chat(reader, writer):
                     case ['cows']:
                         pass
                     case ['login', name]:
-                        pass
+                        login_status, response = await process_login(me, name)
+                        if login_status:
+                            me = name
+                            receive = asyncio.create_task(clients[me].get())
+                            print(f'{peername} has logged in as {me}')
+                        writer.write(f'{response}\n'.encode())
+                        await writer.drain()
                     case ['say', name, text]:
                         pass
                     case ['yield', text]:
