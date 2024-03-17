@@ -24,6 +24,15 @@ async def process_say(me, name, text):
     await clients[name].put(f'>>> {me}: {text}')
     return True, ''
 
+async def process_yield(me, text):
+    if me is None:
+        return False, 'You need to log in to send a message!'
+
+    for name in clients:
+        if name != me:
+            await clients[name].put(f'>>> {me} [to all]: {text}')
+    return True, ''
+
 async def chat(reader, writer):
     peername = '{}:{}'.format(*writer.get_extra_info('peername'))
     print(f'{peername} has joined the server')
@@ -74,7 +83,10 @@ async def chat(reader, writer):
                             writer.write(f'{response}\n'.encode())
                             await writer.drain()
                     case ['yield', text]:
-                        pass
+                        yield_status, response = await process_yield(me, text)
+                        if not yield_status:
+                            writer.write(f'{response}\n'.encode())
+                            await writer.drain()
                     case ['quit']:
                         writer.write('Quitting...\n'.encode())
                         await writer.drain()
