@@ -15,6 +15,15 @@ async def process_login(me, name):
         return True, 'Successfully logged in!'
     return False, f'You are already logged in under the name {me}!'
 
+async def process_say(me, name, text):
+    if me is None:
+        return False, 'You need to log in to send a message!'
+    if name not in clients:
+        return False, 'There is no user with {name} username!'
+
+    await clients[name].put(f'>>> {me}: {text}')
+    return True, ''
+
 async def chat(reader, writer):
     peername = '{}:{}'.format(*writer.get_extra_info('peername'))
     print(f'{peername} has joined the server')
@@ -60,7 +69,10 @@ async def chat(reader, writer):
                         writer.write(f'{response}\n'.encode())
                         await writer.drain()
                     case ['say', name, text]:
-                        pass
+                        say_status, response = await process_say(me, name, text)
+                        if not say_status:
+                            writer.write(f'{response}\n'.encode())
+                            await writer.drain()
                     case ['yield', text]:
                         pass
                     case ['quit']:
