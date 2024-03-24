@@ -93,7 +93,6 @@ async def chat(reader, writer):
                             await writer.drain()
                     case ['quit']:
                         writer.write('Quitting...\n'.encode())
-                        await writer.drain()
                         quit_flag = True
                         break
                     case []:
