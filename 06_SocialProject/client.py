@@ -37,13 +37,20 @@ class CowClient(cmd.Cmd):
         return True
 
     def receive(self):
-        while self.is_running:
-            res = s.recv(1024).rstrip().decode()
-            if self.is_waiting:
-                self.completion_queue.put(res)
-                self.is_waiting = False
-            else:
-                print(f'\n{res}\n{self.prompt}{readline.get_line_buffer()}', end='', flush=True)
+        try:
+            while self.is_running:
+                res = s.recv(1024).rstrip().decode()
+                if not res:
+                    self.is_running = False
+                    return True
+                elif self.is_waiting:
+                    self.completion_queue.put(res)
+                    self.is_waiting = False
+                else:
+                    print(f'\n{res}\n{self.prompt}{readline.get_line_buffer()}', end='', flush=True)
+        except Exception as e:
+            print(e)
+            self.is_running = False
 
 
 host = 'localhost' if len(sys.argv) < 2 else sys.argv[1]
