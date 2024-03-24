@@ -17,21 +17,45 @@ class CowClient(cmd.Cmd):
         self.is_waiting = False
 
     def do_who(self, args):
+        """
+        Get the usernames of users who are online.\n
+        Usage: who
+        """
         self.socket.sendall(f'who\n'.encode())
     
     def do_cows(self, args):
+        """
+        Get available usernames, cow names.\n
+        Usage: cows
+        """
         self.socket.sendall(f'cows\n'.encode())
 
     def do_login(self, args):
+        """
+        Log in to the chat. The username can only be the name of a cow.\n
+        Usage: login [username]
+        """
         self.socket.sendall(f'login {args}\n'.encode())
 
     def do_say(self, args):
+        """
+        Send message via cowsay.\n
+        Usage: say [username] [message]
+        """
         self.socket.sendall(f'say {args}\n'.encode())
 
     def do_yield(self, args):
+        """
+        Send message to everyone via cowsay.\n
+        Usage: yield [message]
+        """
         self.socket.sendall(f'yield {args}\n'.encode())
 
     def do_quit(self, args):
+        """
+        Log out of the chat.\n
+        Usage: quit
+        """
         self.socket.sendall(f'quit\n'.encode())
         self.is_running = False
         return True
