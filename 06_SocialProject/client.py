@@ -13,8 +13,8 @@ class CowClient(cmd.Cmd):
         self.socket = socket
         self.is_running = True
 
-    def do_send(self, args):
-        self.socket.sendall(f'{args}\n'.encode())
+    def do_who(self, args):
+        self.socket.sendall(f'who\n'.encode())
 
     def receive(self):
         while self.is_running:
