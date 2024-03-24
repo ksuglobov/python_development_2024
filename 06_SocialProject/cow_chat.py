@@ -60,9 +60,9 @@ async def chat(reader, writer):
                             writer.write(f'There are no logged users yet.\n'.encode())
                         await writer.drain()
                     case ['cows']:
-                        available_names = set(cowsay.list_cows()) - set(clients)
+                        available_names = sorted(list(set(cowsay.list_cows()) - set(clients)))
                         if available_names:
-                            writer.write(f'Available usernames:\n{" ".join(list(available_names))}'.encode())
+                            writer.write(f'Available usernames:\n{" ".join(available_names)}'.encode())
                         else:
                             writer.write(f'There are no available usernames!\n'.encode())
                         await writer.drain()
