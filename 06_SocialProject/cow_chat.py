@@ -22,7 +22,7 @@ async def process_say(me, name, text):
         return False, f'There is no user with {name} username!'
 
     message_text = cowsay.cowsay(text, cow=me)
-    await clients[name].put(f'\n[{me}]:\n{message_text}')
+    await clients[name].put(f'[{me}]:\n{message_text}')
     return True, ''
 
 async def process_yield(me, text):
@@ -32,7 +32,7 @@ async def process_yield(me, text):
     for name in clients:
         if name != me:
             message_text = cowsay.cowsay(text, cow=me)
-            await clients[name].put(f'\n[{me}] [to all]:\n{message_text}')
+            await clients[name].put(f'[{me}] [to all]:\n{message_text}')
     return True, ''
 
 async def chat(reader, writer):
@@ -40,8 +40,6 @@ async def chat(reader, writer):
     print(f'{peername} has joined the server')
     me = None
 
-    writer.write(f'>>> '.encode())
-    await writer.drain()
     send = asyncio.create_task(reader.readline())
     receive = None
 
@@ -104,8 +102,6 @@ async def chat(reader, writer):
                         writer.write('Invalid command!\n'.encode())
                         await writer.drain()
 
-                prompt = '>>> ' if me is None else f'[{me}] >>> '
-                writer.write(prompt.encode())
             elif task is receive:
                 receive = asyncio.create_task(clients[me].get())
                 writer.write(f'{task.result()}\n'.encode())
