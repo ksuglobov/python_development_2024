@@ -26,7 +26,7 @@ class CowClient(cmd.Cmd):
         self.socket.sendall(f'login {args}\n'.encode())
 
     def do_say(self, args):
-        self.socket.sendall(f'login {args}\n'.encode())
+        self.socket.sendall(f'say {args}\n'.encode())
 
     def do_yield(self, args):
         self.socket.sendall(f'yield {args}\n'.encode())
