@@ -15,6 +15,11 @@ class CowClient(cmd.Cmd):
 
     def do_who(self, args):
         self.socket.sendall(f'who\n'.encode())
+    
+    def do_quit(self, args):
+        self.socket.sendall(f'quit\n'.encode())
+        self.is_running = False
+        return True
 
     def receive(self):
         while self.is_running:
