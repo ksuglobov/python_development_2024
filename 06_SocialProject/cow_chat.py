@@ -55,12 +55,7 @@ async def chat(reader, writer):
                 match args:
                     case ['who']:
                         if clients:
-                            writer.write(f'Logged users:\n'.encode())
-                            for i, client in enumerate(clients):
-                                if me is not None and client == me:
-                                    writer.write(f'{i + 1}*. {client} (you)\n'.encode())
-                                else:
-                                    writer.write(f'{i + 1}. {client}\n'.encode())
+                            writer.write(f'Logged users:\n{" ".join(list(clients.keys()))}'.encode())
                         else:
                             writer.write(f'There are no logged users yet.\n'.encode())
                         await writer.drain()
