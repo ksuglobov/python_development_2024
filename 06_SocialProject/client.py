@@ -44,6 +44,14 @@ class CowClient(cmd.Cmd):
         res = res[1].split(' ') if len(res) == 2 else []
         return [cow for cow in res if cow.startswith(text)]
 
+    def complete_say(self, text, line, begidx, endidx):
+        self.awaiting_response = True
+        self.is_waiting = True
+        self.do_who(None)
+        res = self.completion_queue.get().split(':\n')
+        res = res[1].split(' ') if len(res) == 2 else []
+        return [cow for cow in res if cow.startswith(text)]
+
     def receive(self):
         try:
             while self.is_running:
