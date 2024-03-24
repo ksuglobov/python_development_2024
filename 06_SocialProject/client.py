@@ -19,6 +19,9 @@ class CowClient(cmd.Cmd):
     def do_cows(self, args):
         self.socket.sendall(f'cows\n'.encode())
 
+    def do_login(self, args):
+        self.socket.sendall(f'login {args}\n'.encode())
+
     def do_quit(self, args):
         self.socket.sendall(f'quit\n'.encode())
         self.is_running = False
