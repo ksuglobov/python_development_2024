@@ -19,7 +19,7 @@ class CowClient(cmd.Cmd):
     def receive(self):
         while self.is_running:
             res = s.recv(1024).rstrip().decode()
-            print(f'\n{res}\n{self.prompt}{readline.get_line_buffer()}', end='', flush=True) 
+            print(f'\n{res}\n{self.prompt}{readline.get_line_buffer()}', end='', flush=True)
 
 
 host = 'localhost' if len(sys.argv) < 2 else sys.argv[1]
