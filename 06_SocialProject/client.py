@@ -2,6 +2,7 @@ import cmd
 import sys
 import socket
 import threading
+import queue
 import readline
 
 
@@ -11,7 +12,9 @@ class CowClient(cmd.Cmd):
         super().__init__()
         self.prompt = '>>> '
         self.socket = socket
+        self.completion_queue = queue.Queue()
         self.is_running = True
+        self.is_waiting = False
 
     def do_who(self, args):
         self.socket.sendall(f'who\n'.encode())
@@ -36,7 +39,11 @@ class CowClient(cmd.Cmd):
     def receive(self):
         while self.is_running:
             res = s.recv(1024).rstrip().decode()
-            print(f'\n{res}\n{self.prompt}{readline.get_line_buffer()}', end='', flush=True)
+            if self.is_waiting:
+                self.completion_queue.put(res)
+                self.is_waiting = False
+            else:
+                print(f'\n{res}\n{self.prompt}{readline.get_line_buffer()}', end='', flush=True)
 
 
 host = 'localhost' if len(sys.argv) < 2 else sys.argv[1]
