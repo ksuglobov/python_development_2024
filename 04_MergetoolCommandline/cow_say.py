@@ -82,7 +82,7 @@ class CowsayShell(cmd.Cmd):
         self.cow_action(cowsay.cowsay, args)
 
     def do_cowthink(self, args):
-        pass
+        self.cow_action(cowsay.cowthink, args)
 
 
 if __name__ == '__main__':
